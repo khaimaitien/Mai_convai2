@@ -15,7 +15,7 @@ from projects.convai2.eval_f1 import setup_args, eval_f1
 if __name__ == '__main__':
     parser = setup_args()
     parser.set_defaults(
-        model='parlai.agents.k_model.k_agent:KMethod',
+        model='parlai.agents.mai_model.mai_agent:MaiAgent',
         numthreads=80,
     )
     opt = parser.parse_args(print_args=False)
