@@ -111,7 +111,7 @@ class MaiAgent(Agent):
                 indices = conversation.get_ranked_indices_for_one_question(converse)
                 ranked_res = [cands[index] for index in indices]
                 batch_reply[i]['text_candidates'] = ranked_res
-            batch_reply[i]['text'] = 'hello' #conversation.get_response(profile, obs['text'])
+            batch_reply[i]['text'] = conversation.get_response(profile, obs['text'])
         return batch_reply
 
     def save(self, path=None):
