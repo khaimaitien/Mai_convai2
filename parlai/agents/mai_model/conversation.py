@@ -15,7 +15,6 @@ def load_model(use_cuda, model_folder):
     setting['vocab_size'] = w2vec_init.shape[0]
     setting['embed_init'] = w2vec_init
     setting['word_dim'] = w2vec_init.shape[1]
-    setting.update(convai_model.get_default_setting())
     model = convai_model.RankingModel(setting)
     if use_cuda:
         model.load_state_dict(torch.load(model_path))

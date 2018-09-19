@@ -5,15 +5,6 @@ from torch.autograd import Variable
 import torch.nn.functional as F
 
 
-def get_default_setting():
-    return {
-        'sim_dim': 512,
-        'att_type': 'concat',
-        'profile_dim': 512,
-        'att_dim': 512
-    }
-
-
 class RankingModel(nn.Module):
     def __init__(self, setting):
         nn.Module.__init__(self)
