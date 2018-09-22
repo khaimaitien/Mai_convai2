@@ -1,6 +1,6 @@
 import numpy as np
 import re, os, json
-import convai_model as k_model2
+import convai_model
 import torch
 import utility
 import sys
@@ -99,8 +99,7 @@ def train_model(setting):
     setting['embed_init'] = w2vec_init
     lamda = setting['lamda']
     learning_rate = setting['learning_rate']
-    setting.update(k_model2.get_default_setting())
-    model = k_model2.RankingModel(setting)
+    model = convai_model.RankingModel(setting)
     use_cuda = setting['use_cuda']
     if use_cuda:
         model.cuda()
@@ -175,8 +174,7 @@ def get_final_model(use_cuda):
     setting['vocab_size'] = w2vec_init.shape[0]
     setting['embed_init'] = w2vec_init
     setting['word_dim'] = w2vec_init.shape[1]
-    setting.update(k_model2.get_default_setting())
-    model = k_model2.RankingModel(setting)
+    model = convai_model.RankingModel(setting)
     if use_cuda:
         model.load_state_dict(torch.load(model_path))
         model.cuda()
@@ -224,29 +222,36 @@ def eval_on_valid(use_cuda):
     print ('final accuracy: %d/%d = %f' % (total_sens, total_true, acc_ratio))
 
 
-def run_train1():
+def run_train1(use_cuda):
     setting = {
         'sim_dim': 512,
         'retrain_emb': False,
-        'use_cuda': True,
+        'use_cuda': use_cuda,
         'alpha': 0.5,
         'learning_rate': 0.001,
         'epo_num': 15,
         'build_dic': False,
-        'lamda': 0.3
+        'lamda': 0.3,
+        'sim_dim': 1024,
+        'att_type': 'concat',
+        'profile_dim': 512,
+        'att_dim': 512
     }
     train_model(setting)
 
 
 def main():
-    if len(sys.argv) != 2:
-        print ('usage: python k_train.py train/eval')
+    if len(sys.argv) != 3:
+        print ('usage: python k_train.py train/eval use_cuda')
         sys.exit(1)
     mode = sys.argv[1]
+    use_cuda = False
+    if sys.argv[2].strip().lower() == 'true':
+        use_cuda = True
     if mode == 'eval':
-        eval_on_valid(False)
+        eval_on_valid(use_cuda)
     elif mode == 'train':
-        run_train1()
+        run_train1(use_cuda)
 
 if __name__ == '__main__':
     main()
