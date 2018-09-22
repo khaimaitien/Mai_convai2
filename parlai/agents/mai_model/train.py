@@ -224,7 +224,6 @@ def eval_on_valid(use_cuda):
 
 def run_train1(use_cuda):
     setting = {
-        'sim_dim': 512,
         'retrain_emb': False,
         'use_cuda': use_cuda,
         'alpha': 0.5,
@@ -242,7 +241,7 @@ def run_train1(use_cuda):
 
 def main():
     if len(sys.argv) != 3:
-        print ('usage: python k_train.py train/eval use_cuda')
+        print ('usage: python train.py train/eval use_cuda')
         sys.exit(1)
     mode = sys.argv[1]
     use_cuda = False
