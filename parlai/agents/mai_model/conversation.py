@@ -1,4 +1,4 @@
-import os
+import os, datetime
 import data_reader
 import torch
 import numpy as np
@@ -26,15 +26,16 @@ def load_model(use_cuda, model_folder):
 
 
 class WrapConverse(object):
-    def __init__(self):
+    def __init__(self, use_cuda=False):
         cur_folder = os.path.dirname(os.path.abspath(__file__))
         model_folder = os.path.join(cur_folder, 'model')
-        self.model = load_model(False, model_folder)
+        self.use_cuda = use_cuda
+        self.model = load_model(self.use_cuda, model_folder)
         self.vocab_dic = data_reader.load_vocab(data_reader.get_vocab_path())
 
     def get_ranked_candidates(self, converse):
         temp_converse = utility.convert_converse_to_wid(self.vocab_dic, converse)
-        scores = utility.get_prediction_from_converse(temp_converse, False, self.model)
+        scores = utility.get_prediction_from_converse(temp_converse, self.use_cuda, self.model)
         ### rank by scores ####
         score_list = scores.data.tolist()
         score_np = np.array(score_list) # N * k (N = number of questions, k = number of candidates)
@@ -63,7 +64,17 @@ class WrapConverse(object):
         response = cands[b_indices[0]]
         return ' '.join(response)
 
-WRAP_CONVERSE = WrapConverse()
+
+def get_wrap_converse():
+    cur_folder = os.path.dirname(os.path.abspath(__file__))
+    model_folder = os.path.join(cur_folder, 'model')
+    setting_path = os.path.join(model_folder, 'setting.json')
+    setting = data_reader.read_json(setting_path)
+    use_cuda = setting['use_cuda']
+    result = WrapConverse(use_cuda)
+    return result
+
+WRAP_CONVERSE = get_wrap_converse()
 
 
 def get_response(profile, question):
@@ -120,6 +131,7 @@ def test_ranked_model():
     converses, _ = data_reader.read_training_data('data/valid_self_original.txt', False)
     true_count = 0
     total_count = 0
+    t1 = datetime.datetime.now()
     for converse in converses:
         indices = get_ranked_indices(converse) # N * k
         true_indexs = converse['indexs']# N
@@ -128,6 +140,8 @@ def test_ranked_model():
                 true_count += 1
         total_count += len(true_indexs)
     ratio = float(true_count)/total_count
+    t2 = datetime.datetime.now()
+    print ('time for evaluating model: %f seconds' % (t2 - t1).total_seconds())
     print ('accuracy %d/%d = %f' % (true_count, total_count, ratio))
 
 

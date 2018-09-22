@@ -87,7 +87,7 @@ def remove_cands_in_converse(conver, K):
 
 def train_model(setting):
     #save_setting(setting)
-    convers, _ = data_reader.read_training_data('data/train_self_original.txt', True, 20)
+    convers, _ = data_reader.read_training_data('data/train_self_original.txt', True, 30)
     vocab_dic = data_reader.load_vocab(data_reader.get_vocab_path())
     w2vec_init = data_reader.load_w2vec_matrix()
     convers = get_random_permutation(convers)
