@@ -2,7 +2,7 @@
 
 This repository is my model for Convai2 2018 NIPS Competition (http://convai.io/). 
 - My team name is: "Khai Mai Alt"
-- My model name is: ""
+- My model name is: "attention-based similarity"
 
 # How to install
 - Use Python3 to run this code
