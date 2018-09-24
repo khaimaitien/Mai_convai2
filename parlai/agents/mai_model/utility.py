@@ -99,18 +99,23 @@ def get_loss_from_converse(conver, use_cuda, model, lamda, just_forward=False):
 
 def get_prediction_from_converse(conver, use_cuda, model, just_forward=False):
     profile = conver['profile']
-    var_profile = autograd.Variable(torch.LongTensor(profile), volatile=just_forward)  # N *
+    var_profile = autograd.Variable(torch.LongTensor(profile))  # N *
     if use_cuda:
         var_profile = var_profile.cuda()
     question_length = conver['question_leng']
     question = conver['question']
-    var_question = autograd.Variable(torch.LongTensor(question), volatile=just_forward)
+    var_question = autograd.Variable(torch.LongTensor(question))
     if use_cuda:
         var_question = var_question.cuda()
     cands = conver['cand']
-    var_cand = autograd.Variable(torch.LongTensor(cands), volatile=just_forward)
+    var_cand = autograd.Variable(torch.LongTensor(cands))
     if use_cuda:
         var_cand = var_cand.cuda()
     cand_lengths = conver['cand_leng']
-    scores = model(use_cuda, var_profile, conver['profile_leng'], var_question, question_length, var_cand, cand_lengths)
+    if just_forward:
+        with torch.no_grad():
+            scores = model(use_cuda, var_profile, conver['profile_leng'], var_question, question_length, var_cand, cand_lengths)
+    else:
+        scores = model(use_cuda, var_profile, conver['profile_leng'], var_question, question_length, var_cand,
+                       cand_lengths)
     return scores
