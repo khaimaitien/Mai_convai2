@@ -31,5 +31,11 @@ Evaluating might be little bit slow because the model is relatively heavy ! (abo
     ```
     - F1: 
     ```
-        FINAL F1: 0.1762
+        ...
+        14210s elapsed: {'time_left': '0s', 'f1': 0.1754, '%done': '100.00%', 'exs': 7801}
+        EPOCH DONE
+        finished evaluating task convai2:self:no_cands using datatype valid
+        {'f1': 0.1754, 'exs': 7801}
+        ============================
+        FINAL F1: 0.1754
     ```
