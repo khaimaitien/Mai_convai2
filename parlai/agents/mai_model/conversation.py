@@ -58,7 +58,7 @@ class WrapConverse(object):
         """
         p_text_list = [' '.join(item) for item in profile]
         p_text = ' '.join(p_text_list)
-        temp_cand = cand_retrieval.get_documents(p_text, 200)
+        temp_cand = cand_retrieval.get_documents(p_text, 100)
         cands = [item.split(' ') for item in temp_cand]
         cand_sorts = self.get_ranked_candidates({'question': question, 'profile': profile, 'cand': [cands]})
         b_indices = cand_sorts[0]
