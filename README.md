@@ -30,4 +30,6 @@ Evaluating might be little bit slow because the model is relatively heavy ! (abo
         {'exs': 7801, 'hits@1': 0.853} 
     ```
     - F1: 
-    ```{'exs': 7801, 'hits@1': 0.853}```
+    ```
+        FINAL F1: 0.1762
+    ```
