@@ -107,6 +107,7 @@ class MaiAgent(Agent):
             obs = observations[i]
             if 'label_candidates' in obs:
                 cands = obs['label_candidates']
+                #print ('number of cands: %d' % len(cands))
                 converse = {'question': obs['text'], 'cand': cands, 'profile': profile}
                 indices = conversation.get_ranked_indices_for_one_question(converse)
                 ranked_res = [cands[index] for index in indices]

@@ -20,5 +20,14 @@ Evaluating might be little bit slow because the model is relatively heavy ! (abo
 
 # Evaluation result
 - By running evaluation, the result should be like this:
-    - F1: ``` FINAL F1: 0.1762 ```
-    - Hit@1: ``````
+    - Hit@1: 
+    ``` 
+        ...
+        31946s elapsed: {'exs': 7798, 'time_left': '12s', 'hits@1': 0.853, '%done': '99.96%'}
+        31959s elapsed: {'exs': 7801, 'time_left': '0s', 'hits@1': 0.853, '%done': '100.00%'}
+        EPOCH DONE
+        finished evaluating task convai2:self using datatype valid
+        {'exs': 7801, 'hits@1': 0.853} 
+    ```
+    - F1: 
+    ```{'exs': 7801, 'hits@1': 0.853}```

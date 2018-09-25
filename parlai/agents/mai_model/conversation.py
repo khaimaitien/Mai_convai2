@@ -46,6 +46,7 @@ class WrapConverse(object):
             items = list(score_indexs[i])
             items.reverse()
             result.append(items)
+        #print ('total call: %d, leng = %d' % (self.count, len()))
         return result
 
     def get_response(self, profile, question):
@@ -132,6 +133,7 @@ def test_ranked_model():
     true_count = 0
     total_count = 0
     t1 = datetime.datetime.now()
+    count = 0
     for converse in converses:
         indices = get_ranked_indices(converse) # N * k
         true_indexs = converse['indexs']# N
@@ -139,6 +141,9 @@ def test_ranked_model():
             if true_indexs[i] == indices[i][0]:
                 true_count += 1
         total_count += len(true_indexs)
+        count += 1
+        if count % 10 == 1:
+            print ('count = %d' % count)
     ratio = float(true_count)/total_count
     t2 = datetime.datetime.now()
     print ('time for evaluating model: %f seconds' % (t2 - t1).total_seconds())
