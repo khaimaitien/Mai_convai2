@@ -1,6 +1,7 @@
 import os, datetime
 import data_reader
 import torch
+import json
 import numpy as np
 import convai_model
 import cand_retrieval
@@ -34,6 +35,7 @@ class WrapConverse(object):
         self.vocab_dic = data_reader.load_vocab(data_reader.get_vocab_path())
 
     def get_ranked_candidates(self, converse):
+        print (json.dumps(converse, ensure_ascii=False))
         temp_converse = utility.convert_converse_to_wid(self.vocab_dic, converse)
         scores = utility.get_prediction_from_converse(temp_converse, self.use_cuda, self.model)
         ### rank by scores ####
@@ -78,7 +80,7 @@ def get_wrap_converse():
 WRAP_CONVERSE = get_wrap_converse()
 
 
-def get_response(profile, question, cand_num=10):
+def get_response(profile, question, cand_num=180):
     sens = profile
     if type(sens[0]) is not list:
         temp_profile = []
@@ -168,6 +170,6 @@ def test_auto_gen_response():
 
 
 if __name__ == '__main__':
-    #test_auto_gen_response()
-    test_ranked_model()
+    test_auto_gen_response()
+    #test_ranked_model()
 
