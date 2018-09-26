@@ -88,7 +88,7 @@ def find_optimal_cand_num():
     convers, _ = data_reader.read_training_data('data/valid_self_original.txt', True, 0)
     save_f = open('cand_report.txt', 'w')
     for cand_num in cand_nums:
-        result = eval_f1_for_valid(cand_num)
+        result = eval_f1_for_valid(cand_num, convers)
         save_f.write('%d: %f\n' % (cand_num, result))
     save_f.close()
 
