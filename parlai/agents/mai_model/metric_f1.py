@@ -88,9 +88,11 @@ def eval_f1_for_valid(cand_num, convers):
 def find_optimal_cand_num():
     cand_nums = [20, 50, 80, 100, 120, 150, 180, 200]
     convers, _ = data_reader.read_training_data('data/valid_self_original.txt', True, 0)
+    print ('leng of converse: %d' % len(convers))
     save_f = open('cand_report.txt', 'w')
     for cand_num in cand_nums:
-        result = eval_f1_for_valid(cand_num, convers)
+        result = eval_f1_for_valid(cand_num, convers[: 100])
+        print ('cand_num = %d has fscore = %f' % (cand_num, resultcommi))
         save_f.write('%d: %f\n' % (cand_num, result))
     save_f.close()
 
