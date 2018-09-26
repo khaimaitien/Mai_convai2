@@ -79,9 +79,9 @@ def eval_f1_for_valid(cand_num, convers):
             #print ('answer = ', answer)
             f1 = _f1_score(response, [' '.join(answer)])
             total_f1 += f1
-            count += 1
-        if count % 1000 == 1:
+        if count % 10 == 1:
             print ('cand_num = %d, count = %d' % (cand_num, count))
+        count += 1
     return total_f1
 
 
