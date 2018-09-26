@@ -92,7 +92,7 @@ def find_optimal_cand_num():
     save_f = open('cand_report.txt', 'w')
     for cand_num in cand_nums:
         result = eval_f1_for_valid(cand_num, convers[: 100])
-        print ('cand_num = %d has fscore = %f' % (cand_num, resultcommi))
+        print ('cand_num = %d has fscore = %f' % (cand_num, result))
         save_f.write('%d: %f\n' % (cand_num, result))
     save_f.close()
 
