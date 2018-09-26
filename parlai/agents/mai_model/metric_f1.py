@@ -79,7 +79,7 @@ def eval_f1_for_valid(cand_num, convers):
             total_f1 += f1
             count += 1
         if count % 1000 == 1:
-            print 'cand_num = %d, count = %d' % (cand_num, count)
+            print ('cand_num = %d, count = %d' % (cand_num, count))
     return total_f1
 
 
