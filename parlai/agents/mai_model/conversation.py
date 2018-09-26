@@ -49,7 +49,7 @@ class WrapConverse(object):
         #print ('total call: %d, leng = %d' % (self.count, len()))
         return result
 
-    def get_response(self, profile, question):
+    def get_response(self, profile, question, cand_num=100):
         """
 
         :param profile: list of sentences: [['a', 'b'], ['c', 'd']]
@@ -58,7 +58,7 @@ class WrapConverse(object):
         """
         p_text_list = [' '.join(item) for item in profile]
         p_text = ' '.join(p_text_list)
-        temp_cand = cand_retrieval.get_documents(p_text, 100)
+        temp_cand = cand_retrieval.get_documents(p_text, cand_num)
         cands = [item.split(' ') for item in temp_cand]
         cand_sorts = self.get_ranked_candidates({'question': question, 'profile': profile, 'cand': [cands]})
         b_indices = cand_sorts[0]
@@ -78,7 +78,7 @@ def get_wrap_converse():
 WRAP_CONVERSE = get_wrap_converse()
 
 
-def get_response(profile, question):
+def get_response(profile, question, cand_num=10):
     sens = profile
     if type(sens[0]) is not list:
         temp_profile = []
@@ -91,7 +91,7 @@ def get_response(profile, question):
     if type(question) is not list:
         p_question = data_reader.preprocess_rm_period(question)
         tok_question = p_question.split(' ')
-    return WRAP_CONVERSE.get_response(tok_profile, [tok_question])
+    return WRAP_CONVERSE.get_response(tok_profile, [tok_question], cand_num)
 
 
 
