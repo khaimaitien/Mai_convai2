@@ -35,7 +35,7 @@ class WrapConverse(object):
         self.vocab_dic = data_reader.load_vocab(data_reader.get_vocab_path())
 
     def get_ranked_candidates(self, converse):
-        print (json.dumps(converse, ensure_ascii=False))
+        #print (json.dumps(converse, ensure_ascii=False))
         temp_converse = utility.convert_converse_to_wid(self.vocab_dic, converse)
         scores = utility.get_prediction_from_converse(temp_converse, self.use_cuda, self.model)
         ### rank by scores ####
