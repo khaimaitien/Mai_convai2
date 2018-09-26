@@ -75,7 +75,9 @@ def eval_f1_for_valid(cand_num, convers):
             question = questions[index]
             answer = answers[index]
             response = conversation.get_response(profile, question, cand_num)
-            f1 = _f1_score(response, [answer])
+            #print ('response = ', response)
+            #print ('answer = ', answer)
+            f1 = _f1_score(response, [' '.join(answer)])
             total_f1 += f1
             count += 1
         if count % 1000 == 1:
